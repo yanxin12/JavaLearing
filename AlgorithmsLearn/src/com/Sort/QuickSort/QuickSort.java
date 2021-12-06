@@ -1,6 +1,8 @@
 package com.Sort.QuickSort;
 
 import com.Sort.Utils.SortUtils;
+
+import java.math.BigInteger;
 // -*- coding: utf-8 -*-
 
 /**
@@ -33,6 +35,33 @@ public class QuickSort {
         }
 
     }
+
+    public static void quickSortBigIntege(BigInteger[] q, int l, int r) {
+        if (l >= r) return;
+        // pivot element select
+        BigInteger x = q[l + r >> 1];
+        // Compare position come from the array two point
+        int i = l - 1, j = r + 1;
+        // When the programing finished the number i will bigger than
+        // the number j
+        while (i < j) {
+            do {
+                ++i;
+            } while (q[i].compareTo(x) < 0);
+            do {
+                --j;
+            } while (q[j].compareTo(x) > 0);
+            // exchange the posion
+            if (i < j) {
+                BigInteger temp = q[i];
+                q[i] = q[j];
+                q[j] = temp;
+            }
+        }
+        quickSortBigIntege(q, l, j);
+        quickSortBigIntege(q, j + 1, r);
+    }
+
 
     public static void quickSort(int[] q, int l, int r) {
         if (l >= r) return;

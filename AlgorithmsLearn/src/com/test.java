@@ -3,6 +3,7 @@ package com;// -*- coding: utf-8 -*-
 import com.Sort.Utils.SortUtils;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,19 +58,11 @@ public class test {
     }
 
     @Test
-    public void shout()  {
-        int rand = 0;
-//        System.out.println((int) Math.pow(10, 0));
-        for (int i = 0; i < 100000000; i++) {
-//            System.out.print(utils.randomSelect(0,7)+"\t");
-            if ((rand = utils.randomSelect(0, 7)) == 8) {
-                System.out.println(rand);
-                break;
-            }
-        }
-        System.out.println("Finished!");
-
-
+    public void shout() {
+        BigInteger a = BigInteger.valueOf(12345);
+        BigInteger b = BigInteger.valueOf(12346);
+        System.out.println(a.compareTo(b));
+        System.out.println(b.compareTo(a));
     }
 
 }
