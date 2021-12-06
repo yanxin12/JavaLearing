@@ -22,19 +22,14 @@ public class MaxBytesLength {
                 } else {
                     ++oneNum;
                 }
-                if (oneNum == zeroNum) {
-                    System.out.println("i = " + i + "j = " + j);
-                    maxLength = Math.max(maxLength, (oneNum + zeroNum));
-                } else {
-
-                    tempMax = Math.min(oneNum, zeroNum);
-                    maxLength = Math.max(maxLength, tempMax);
-                }
-            }
-            if (maxLength == 482) {
-                break;
+                // 忽略了连续
+                // 011000011 最大连续相等子串为2
+                tempMax = Math.min(oneNum, zeroNum);
+                maxLength = Math.max(maxLength, tempMax);
             }
         }
         return maxLength;
     }
 }
+
+
