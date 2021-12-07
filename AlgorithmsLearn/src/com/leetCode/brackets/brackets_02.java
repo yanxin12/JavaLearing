@@ -12,7 +12,7 @@
  * * 可以被视为单个右括号 ) ，或单个左括号 ( ，或一个空字符串。
  * 一个空字符串也被视为有效字符串。
  */
-package com.leetCode;
+package com.leetCode.brackets;
 
 import org.junit.jupiter.api.Test;
 

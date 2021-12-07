@@ -6,7 +6,7 @@
  * IDE: IntelliJ IDEA
  * Introduction:
  */
-package com.leetCode;
+package com.leetCode.brackets;
 
 import java.util.Stack;
 

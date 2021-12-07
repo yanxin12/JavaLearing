@@ -1,4 +1,4 @@
-package com.leetCode;// -*- coding: utf-8 -*-
+package com.leetCode.MaxIceCream;// -*- coding: utf-8 -*-
 
 import org.junit.jupiter.api.Test;
 

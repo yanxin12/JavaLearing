@@ -3,7 +3,6 @@ package com;// -*- coding: utf-8 -*-
 import com.Sort.Utils.SortUtils;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,10 +58,7 @@ public class test {
 
     @Test
     public void shout() {
-        BigInteger a = BigInteger.valueOf(12345);
-        BigInteger b = BigInteger.valueOf(12346);
-        System.out.println(a.compareTo(b));
-        System.out.println(b.compareTo(a));
+
     }
 
 }
