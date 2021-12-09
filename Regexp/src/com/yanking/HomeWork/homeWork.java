@@ -67,7 +67,7 @@ public class homeWork {
     @Test
     public void analyURL() {
 //        String content = "http://www.sohu.com:8080/abc/index.htm";
-        String content = "http://www.baidu13312.com:8080/aaa/xxx/yyy//////index.htm";
+        String content = "http://www.baidu13312.com:8080/aaa/xxx/yyy//////index.html";
         String regstr = "^([a-zA-Z]+)://(\\w+\\.\\w+\\.[a-zA-Z]+):(\\d{4})[\\w-/]*/(\\w+\\.\\w+)$";
         Pattern pattern = Pattern.compile(regstr);
         Matcher matcher = pattern.matcher(content);

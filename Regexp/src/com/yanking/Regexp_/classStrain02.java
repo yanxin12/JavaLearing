@@ -125,7 +125,8 @@ public class classStrain02 {
     }
 
 
-    //结巴去重
+    // 结巴去重
+    // 正则表达式匹配字符串，并且实现替换功能
     @Test
     public void regexp_simple() {
         String content = "我....我要....学学学学....编程Java！";
