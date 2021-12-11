@@ -1,11 +1,10 @@
 package com;// -*- coding: utf-8 -*-
 
 import com.Sort.Utils.SortUtils;
+import com.leetCode.convertBST.TreeNode;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -58,7 +57,8 @@ public class test {
 
     @Test
     public void shout() {
-
+        TreeNode[] nodes = new TreeNode[2];
+        System.out.println(nodes.length);
     }
 
 }

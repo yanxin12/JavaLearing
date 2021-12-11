@@ -8,9 +8,7 @@
  */
 package com.DataStruct.Tree;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 @SuppressWarnings({"all"})
 public class Utils {
@@ -27,13 +25,18 @@ public class Utils {
 
     // 实现树的中序遍历
     public void midSearch(TreeNode root) {
-        midSearch(root.left);
-        System.out.println(root.val);
-        midSearch(root.right);
+        if (root != null) {
+            midSearch(root.left);
+            System.out.print(root.val + "\t");
+            midSearch(root.right);
+        }
     }
 
     // 实现树的后序遍历
     public void posSearch(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         preSearch(root.left);
         preSearch(root.right);
         System.out.println(root.val);
@@ -160,6 +163,9 @@ public class Utils {
      *             当栈和p节点指针都为空的时候，遍历完成
      */
     public void nopreRecursion(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         // 辅助栈，存放根节点
         Stack<TreeNode> auxiliaryStack = new Stack<>();
         // 遍历指针
@@ -189,6 +195,9 @@ public class Utils {
      *             需要使用辅助栈存储节点信息
      */
     public void noinRecursion(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         // 辅助栈，存放根节点
         Stack<TreeNode> auxiliaryStack = new Stack<>();
         // 遍历指针
@@ -217,6 +226,9 @@ public class Utils {
      *             需要使用辅助变量isFirst
      */
     public void noposRecursion(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         // 辅助栈，存放根节点
         Stack<TreeNode> auxiliaryStack = new Stack<>();
         // 遍历指针
@@ -250,6 +262,9 @@ public class Utils {
      * 使用前指针判断节点的左右指针是否被访问过
      */
     public void noPosRecursion(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         // 辅助栈，存放根节点
         Stack<TreeNode> auxiliaryStack = new Stack<>();
         // 初始化指针
@@ -275,6 +290,77 @@ public class Utils {
             }
 
         }
+    }
+
+    /**
+     * 实现二叉树的层次遍历
+     * 使用辅助队列
+     *
+     * @param root
+     */
+    public void levelOrderTravel(TreeNode root) {
+        // 初始化辅助队列
+        Queue<TreeNode> auxiliaryQueue = new LinkedList<>();
+        auxiliaryQueue.add(root);
+        while (!auxiliaryQueue.isEmpty()) {
+            TreeNode tmpNode = auxiliaryQueue.element();
+            // 孩子按顺序入队列
+            if (tmpNode.left != null) {
+                auxiliaryQueue.add(tmpNode.left);
+            }
+            if (tmpNode.right != null) {
+                auxiliaryQueue.add(tmpNode.right);
+            }
+            System.out.print(auxiliaryQueue.poll().val + "\t");
+        }
+
+    }
+
+    /**
+     * 实现二叉树的孩子兄弟转化
+     * 需要使用辅助栈
+     */
+    public TreeNode biToSiblingTree(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Stack<TreeNode> auxiliaryStack = new Stack<>();
+        auxiliaryStack.push(root);
+        TreeNode p = root;
+        TreeNode q = null;
+        while (!auxiliaryStack.isEmpty()) {
+            while (p != null) {
+                auxiliaryStack.push(p);
+                p = p.left;
+            }
+            p = auxiliaryStack.peek();
+            if (p.right != null) {
+                p.left = p.right;
+                p = p.left;
+            } else {
+                auxiliaryStack.pop();
+                if (auxiliaryStack.isEmpty()) {
+                    return root;
+                }
+                q = auxiliaryStack.peek();
+                if (q.right != null) {
+                    p.right = q.right;
+                    q.right = null;
+                    p = p.right;
+                } else {
+                    p = null;
+                }
+            }
+        }
+        return root;
+    }
+
+
+    // 实现树节点复制方法
+    public TreeNode assignmentValues(TreeNode root) {
+        TreeNode node = new TreeNode();
+        node.val = root.val;
+        return node;
     }
 
 
