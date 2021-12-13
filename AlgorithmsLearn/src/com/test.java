@@ -1,10 +1,11 @@
 package com;// -*- coding: utf-8 -*-
 
 import com.Sort.Utils.SortUtils;
-import com.leetCode.convertBST.TreeNode;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -56,9 +57,24 @@ public class test {
     }
 
     @Test
+    public void transData() {
+        String data = "[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]";
+        System.out.println(
+                data.replace('[', '{').replace(']', '}'));
+    }
+
+    @Test
+    public int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    @Test
     public void shout() {
-        TreeNode[] nodes = new TreeNode[2];
-        System.out.println(nodes.length);
+        int[] q = {3, 1};
+        int[] p = {8, 66};
+        int a = (p[0] - q[0]);
+        int b = (p[1] - q[1]);
+        System.out.println(gcd(a, b));
     }
 
 }
