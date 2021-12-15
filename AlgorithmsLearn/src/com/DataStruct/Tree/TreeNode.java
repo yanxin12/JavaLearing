@@ -14,6 +14,7 @@ public class TreeNode<T> {
     T val;
     TreeNode<T> left;
     TreeNode<T> right;
+    TreeNode<T> parent;
 
     TreeNode() {
     }
@@ -22,10 +23,12 @@ public class TreeNode<T> {
         this.val = val;
     }
 
-    TreeNode(T val, TreeNode left, TreeNode right) {
+    public TreeNode(boolean isFirst, T val, TreeNode<T> left, TreeNode<T> right, TreeNode<T> parent) {
+        this.isFirst = isFirst;
         this.val = val;
         this.left = left;
         this.right = right;
+        this.parent = parent;
     }
 
     public boolean isFirst() {

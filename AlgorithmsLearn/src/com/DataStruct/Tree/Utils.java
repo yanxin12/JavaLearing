@@ -59,6 +59,8 @@ public class Utils {
 
 
     /**
+     * 前序中序序列构造二叉树
+     *
      * @param pre     前序序列数据
      * @param in      中序序列数据
      * @param start   前序序列起点
@@ -82,6 +84,12 @@ public class Utils {
         // 递归创建
         root.left = buildTree(pre, in, start + 1, start + leftLen, instart);
         root.right = buildTree(pre, in, start + leftLen + 1, end, rootIndex + 1);
+        if (root.left != null) {
+            root.left.parent = root;
+        }
+        if (root.right != null) {
+            root.right.parent = root;
+        }
         return root;
     }
 
@@ -125,11 +133,16 @@ public class Utils {
                 inMap, pos, start, end - rightLen - 1, rootIndex - 1);
         root.right = inPosOrder(
                 inMap, pos, end - rightLen, end - 1, inend);
+        if (root.left != null) {
+            root.left.parent = root;
+        }
+        if (root.right != null) {
+            root.right.parent = root;
+        }
         return root;
     }
 
-    // 方法实现查找a在Array数组数组的索引
-    // 假设a在数组中唯一存在
+    // 方法实现查找a在Array数组数组的索引,假设a在数组中唯一存在
     public int getIndex(int a, int[] Array) {
         for (int i = 0; i < Array.length; i++) {
             if (a == Array[i]) {
@@ -140,8 +153,7 @@ public class Utils {
         return -1;
     }
 
-    // 递归建立一颗完全二叉树
-    // 传入的数据形式为整形数组
+    // 递归建立一颗完全二叉树,传入的数据形式为整形数组
     public TreeNode constructTreeByInt(int[] treedata, int i) {
         if (i >= treedata.length) {
             return null;
@@ -329,6 +341,7 @@ public class Utils {
         TreeNode p = root;
         TreeNode q = null;
         while (!auxiliaryStack.isEmpty()) {
+            // 从最左叶子节点开始，思路是树的连线法
             while (p != null) {
                 auxiliaryStack.push(p);
                 p = p.left;
@@ -339,10 +352,13 @@ public class Utils {
                 p = p.left;
             } else {
                 auxiliaryStack.pop();
+                // 避免出现根节点出栈之后出现空指针异常
                 if (auxiliaryStack.isEmpty()) {
                     return root;
                 }
+                // 此时的栈顶节点为当前节点的父节点
                 q = auxiliaryStack.peek();
+                // 如果当前节点的父节点有右子树，则将右子树连给当前节点，并且对父节点的右子树实现连线操作
                 if (q.right != null) {
                     p.right = q.right;
                     q.right = null;
@@ -356,11 +372,226 @@ public class Utils {
     }
 
 
-    // 实现树节点复制方法
-    public TreeNode assignmentValues(TreeNode root) {
-        TreeNode node = new TreeNode();
-        node.val = root.val;
-        return node;
+    /**
+     * 复制一颗二叉树
+     *
+     * @param root 原二叉树的根节点
+     * @return 返回新创建的二叉树
+     * 一边遍历，一边创建节点并且连线
+     */
+    public TreeNode dupblicateBiTree(TreeNode root) {
+        if (root != null) {
+            TreeNode newRoot = new TreeNode();
+            newRoot.val = root.val;
+            newRoot.left = dupblicateBiTree(root.left);
+            newRoot.right = dupblicateBiTree(root.right);
+            return newRoot;
+        }
+        return null;
+    }
+
+    /**
+     * 由数组创建一个二插排序树
+     * 遍历数组，以第一个元素为根节点，其他元素小于根节点的在根节点左边，大于根节点的在根节点右边
+     * 需要辅助指针，每次遍历一个数据的时候需要比较当前指针q的值和当前数据的大小
+     * 1 相等(暂时不考虑)
+     * 插入左右子树都可以
+     * 2 小于
+     * 继续和p的左子树比较
+     * p = p.left
+     * 3 大于
+     * 继续和p的右子树比较
+     * p = p.right
+     * <p>
+     * 方法时间复杂度
+     * O(nlgn)
+     */
+    public TreeNode constructSortTree(int[] data) {
+        if (data.length == 0) {
+            // 传入的数组为空
+            return null;
+        }
+        TreeNode<Integer> root = new TreeNode<>();
+        TreeNode<Integer> p = new TreeNode<>();
+        root.val = data[0];
+
+        for (int i = 1; i < data.length; i++) {
+            // 每插入一个节点都需要遍历已经创建的树
+            p = root;
+            while (true) {
+                if (p.val >= data[i]) {
+                    if (p.left != null) {
+                        p = p.left;
+                    } else {
+                        // 如果节点的左子树为空，则将小于当前节点的值置于左子树
+                        TreeNode<Integer> node = new TreeNode<>();
+                        node.val = data[i];
+                        p.left = node;
+                        break;
+                    }
+                } else if (p.val < data[i]) {
+                    if (p.val < data[i]) {
+                        if (p.right != null) {
+                            p = p.right;
+                        } else {
+                            // 如果节点的右子树为空，则将大于当前节点的值置于右子树
+                            TreeNode<Integer> node = new TreeNode<>();
+                            node.val = data[i];
+                            p.right = node;
+                            break;
+                        }
+                    } else {
+                        System.out.println("Equals!");
+                    }
+                }
+            }
+        }
+        return root;
+    }
+    /**
+     * 将一棵二叉树转化为二插排序树
+     *      转化为数组再进行创建
+     *      算法时间复杂度：
+     *          O(2*n*lgn)
+     */
+    /**
+     * 将一棵二插树转化为严格二叉树
+     */
+
+
+    /**
+     * 寻找排序二叉树的的最小值
+     * 时间复杂度：
+     * O(lgn)
+     */
+    public int getMinimum(TreeNode<Integer> root) {
+        if (root == null) {
+            System.out.println("传入的树为空！");
+            return -1;
+        }
+        TreeNode<Integer> tmp = root;
+        while (tmp.left != null) {
+            tmp = tmp.left;
+        }
+        return tmp.val;
+    }
+
+    /**
+     * 寻找排序二叉树的的最大值
+     * 时间复杂度：
+     * O(lgn)
+     */
+    public int getMaximum(TreeNode<Integer> root) {
+        if (root == null) {
+            System.out.println("传入的树为空！");
+            return -1;
+        }
+        TreeNode<Integer> tmp = root;
+        while (tmp.right != null) {
+            tmp = tmp.right;
+        }
+        return tmp.val;
+    }
+
+    /**
+     * 寻找排序二叉树的的最小值
+     * 递归版本
+     * 时间复杂度：
+     * O(lgn)
+     */
+    public TreeNode getMinimumByRecursion(TreeNode<Integer> root) {
+        if (root == null) {
+            // 抵达叶子节点或者传入的节点为空节点
+            return null;
+        } else if (root.left != null) {
+            return getMinimumByRecursion(root.left);
+        } else {
+            return root;
+        }
+    }
+
+
+    /**
+     * 寻找排序二叉树的的最大值
+     * 递归版本
+     * 时间复杂度：
+     * O(lgn)
+     */
+    public TreeNode getMaximumByRecursion(TreeNode<Integer> root) {
+        if (root == null) {
+            // 抵达叶子节点或者传入的节点为空节点
+            return null;
+        } else if (root.right != null) {
+            return getMaximumByRecursion(root.right);
+        } else {
+            return root;
+        }
+    }
+
+    /**
+     * 返回二叉排序树中指定节点的后继节点
+     * 1 当前节点的右子树不为空：
+     * 当前节点的后继节点为当前节点右子树的最左节点
+     * 2 当前节点的右子树为空
+     * 当前节点的后继节点为当存在当前节点的祖先节点为其祖先节点的父节点的左子树时候
+     * 的祖先节点的父节点
+     *
+     * @param root
+     * @return 返回后继节点
+     */
+    public TreeNode<Integer> TREE_SUSSESSOR(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        if (root.right != null) {
+            // 当前节点存在右子树
+            return getMinimumByRecursion(root.right);
+        } else {
+            // 当前节点不存在右子树
+            // 初始化建立指针
+            TreeNode<Integer> cur = root;
+            TreeNode<Integer> parent = cur.parent;
+            while (parent != null && cur == parent.right) {
+                parent = parent.parent;
+                cur = cur.parent;
+            }
+            // 此时cur为parent的左子树，当查询的节点为树中的最右节点，此时的parent节点为根节点
+            return parent;
+        }
+    }
+
+    /**
+     * 返回二叉排序树中指定节点的前继节点
+     * 1 当前节点的左子树不为空：
+     * 当前节点的后继节点为当前节点右子树的最左节点
+     * 2 当前节点的左子树为空
+     * 当前节点的前继节点为当存在当前节点的祖先节点为其祖先节点的父节点的右子树时候
+     * 的祖先节点的父节点
+     *
+     * @param root
+     * @return 返回后继节点
+     */
+    public TreeNode<Integer> TREE_PREDECESSOR(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        if (root.left != null) {
+            // 当前节点存在左子树
+            return getMaximumByRecursion(root.left);
+        } else {
+            // 当前节点不存在左子树
+            // 初始化建立指针
+            TreeNode<Integer> cur = root;
+            TreeNode<Integer> parent = cur.parent;
+            while (parent != null && cur == parent.left) {
+                parent = parent.parent;
+                cur = cur.parent;
+            }
+            // 此时cur为parent的左子树，当查询的节点为树中的最右节点，此时的parent节点为根节点
+            return parent;
+        }
+
+
     }
 
 
