@@ -3,9 +3,7 @@ package com;// -*- coding: utf-8 -*-
 import com.Sort.Utils.SortUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -70,11 +68,22 @@ public class test {
 
     @Test
     public void shout() {
-        int[] q = {3, 1};
-        int[] p = {8, 66};
-        int a = (p[0] - q[0]);
-        int b = (p[1] - q[1]);
-        System.out.println(gcd(a, b));
+        TreeMap<Integer, Integer> map = new TreeMap<>(Integer::compareTo);
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 3);
+        int[] task = {4, 5, 6};
+        for (Integer next : map.keySet()) {
+            System.out.println(map.get(next));
+        }
+        Map.Entry<Integer, Integer> entry = map.ceilingEntry(6 - 2);
+        System.out.println("--------------------------");
+        System.out.println(entry == null ? "空" : entry.getValue());
+
+
     }
 
+
 }
+
+
