@@ -92,10 +92,10 @@ public class maxTaskAssign_v3 {
                 }
             }
         }
-//        for (int i = 0; i < assignedData.length; i++) {
-//            System.out.println(i + "号工人对应" + assignedData[i] + "号任务");
-//        }
-//        System.out.println("pills = " + pills);
+        for (int i = 0; i < assignedData.length; i++) {
+            System.out.println((i + 1) + "号工人对应" + (assignedData[i] + 1) + "号任务");
+        }
+        System.out.println("pills = " + pills);
 
         return assignedNum;
     }

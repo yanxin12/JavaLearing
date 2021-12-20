@@ -75,10 +75,10 @@ public class maxTaskAssignUpdate {
             // 无论任务有没有被分配，都需要对下一个任务进行匹配
             --t;
         }
-//        for (int i = 0; i < assignedData.length; i++) {
-//            System.out.println(i + "号工人对应" + assignedData[i] + "号任务");
-//        }
-//        System.out.println(pills);
+        for (int i = 0; i < assignedData.length; i++) {
+            System.out.println(i + "号工人对应" + assignedData[i] + "号任务");
+        }
+        System.out.println(pills);
         return assignedNum;
     }
 }
