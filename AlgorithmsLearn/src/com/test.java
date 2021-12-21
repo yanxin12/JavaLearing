@@ -3,7 +3,9 @@ package com;// -*- coding: utf-8 -*-
 import com.Sort.Utils.SortUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -68,19 +70,11 @@ public class test {
 
     @Test
     public void shout() {
-        TreeMap<Integer, Integer> map = new TreeMap<>(Integer::compareTo);
-        map.put(1, 1);
-        map.put(2, 2);
-        map.put(3, 3);
-        int[] task = {4, 5, 6};
-        for (Integer next : map.keySet()) {
-            System.out.println(map.get(next));
+        String data = "hello Henly my name is Jelly";
+        String[] s = data.split(" ");
+        for (int i = 0; i < s.length; i++) {
+            System.out.println(s[i]);
         }
-        Map.Entry<Integer, Integer> entry = map.ceilingEntry(6 - 2);
-        System.out.println("--------------------------");
-        System.out.println(entry == null ? "空" : entry.getValue());
-
-
     }
 
 
