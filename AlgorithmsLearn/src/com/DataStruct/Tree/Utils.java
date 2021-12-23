@@ -427,6 +427,7 @@ public class Utils {
                         TreeNode<Integer> node = new TreeNode<>();
                         node.val = data[i];
                         p.left = node;
+                        node.parent = p;
                         break;
                     }
                 } else if (p.val < data[i]) {
@@ -438,6 +439,7 @@ public class Utils {
                             TreeNode<Integer> node = new TreeNode<>();
                             node.val = data[i];
                             p.right = node;
+                            node.parent = p;
                             break;
                         }
                     } else {
@@ -594,5 +596,128 @@ public class Utils {
 
     }
 
+    /**
+     * 实现二插排序树的插入
+     *
+     * @param root       待插入的树
+     * @param insertNode 待插入的节点
+     * @return 返回一个布尔类型的数据
+     */
+    public void sortTreeInsert(TreeNode<Integer> root, TreeNode<Integer> insertNode) {
+        if (root == null) {
+            // 传入的树为空树
+            root = insertNode;
+        }
+        // 因为树的结构中定义有父节点，所以插入的时候需要指针定位父节点
+        TreeNode<Integer> x = root;
+        TreeNode<Integer> y = null;
+        while (x != null) {
+            y = x;
+            if (x.val > insertNode.val) {
+                // 要插入的地方在当前值的左边
+                x = x.left;
+            } else {
+                // 要插入的地方在当前值的右边
+                x = x.right;
+            }
+        }
+        insertNode.parent = y;
+        if (y.val > insertNode.val) {
+            y.left = insertNode;
+        } else {
+            y.right = insertNode;
+        }
+    }
 
+    /**
+     * 实现二插排序树节点的删除
+     *
+     * @param root       待删除树
+     * @param deleteNode 待删除节点
+     *                   1 左孩子节点为空
+     *                   使用右孩子节点代替被删除节点
+     *                   2 右孩子节点为空
+     *                   使用左孩子节点代替被删除节点
+     *                   3 两个孩子节点不为空
+     *                   寻找当前节点的后继节点，并且transplant
+     *                   需要判断后继节点是不是要删除节点的右孩子节点
+     *                   如果是右孩子节点则直接transplant
+     *                   如果不是右孩子节点，需要处理后继节点的相关关系
+     *                   transplant 可能会删除节点的孩子信息
+     */
+    public void deleteSortTree(TreeNode root, TreeNode deleteNode) {
+        if (deleteNode.left == null) {
+            // 删除节点的左孩子节点为空,直接用删除节点的右孩子节点代替当前节点
+            // 即使删除节点的右孩子节点为空
+            // 因为左孩子节点为空，所以transplant并没有误删节点的孩子信息
+            TRANSPLANT(root, deleteNode, deleteNode.right);
+        } else if (deleteNode.right == null) {
+            // 删除节点的右孩子节点为空，直接使用删除节点的左孩子节点代替当前节点
+            // 因为右孩子节点为空，所以transplant并没有误删节点信息
+            TRANSPLANT(root, deleteNode, deleteNode.right);
+        } else {
+            // 删除节点的两个孩子节点都不为空
+            TreeNode<Integer> y = TREE_SUSSESSOR(deleteNode);
+            if (y != deleteNode.right) {
+                // 后继节点并不是删除节点的右孩子节点
+                // 需要保留后继节点的孩子信息
+                // 因为删除节点的后继节点一定没有左孩子节点，所以这里的transplant并不会误删孩子节点信息
+                TRANSPLANT(root, y, y.right);
+                y.right = deleteNode.right;
+                deleteNode.right.parent = y;
+            }
+            // 这里处理删除节点的左孩子信息
+            y.left = deleteNode.left;
+            deleteNode.left.parent = y;
+        }
+    }
+
+
+    /**
+     * 使用一颗子树替换一颗子树并成为其双亲节点的子节点
+     *
+     * @param root 替换节点的树
+     * @param u    被替换的节点
+     * @param v    替换的子树
+     */
+    public void TRANSPLANT(TreeNode<Integer> root, TreeNode u, TreeNode v) {
+        if (root == null) {
+            System.out.println("There is no element in Tree!");
+            return;
+        } else if (u == root) {
+            // 要替换的节点为根节点
+            root = v;
+            return;
+        } else if (u == u.parent.left) {
+            u.parent.left = v;
+        } else {
+            u.parent.right = v;
+        }
+        if (v != null) {
+            v.parent = u.parent;
+        }
+    }
+
+
+    /**
+     * 二插搜素树的递归插入方法
+     *
+     * @param root       插入的树
+     * @param insertData 被插入的数据
+     */
+    public void insertSortTree(TreeNode<Integer> root, TreeNode<Integer> insertData, TreeNode<Integer> parant) {
+        // 插入数据的时候一定需要进行比较，比较的目的是确定插入节点处于当前节点的哪颗子树
+        if (root == null) {
+            // 当前节点为空节点，直接替换
+            root = insertData;
+            parant = root.parent;
+        }
+        if (root.val > insertData.val) {
+            // 插入节点在当前子树的左子树
+            insertSortTree(root.left, insertData, root);
+        } else {
+            // 插入节点在当前子树的右子树
+            insertSortTree(root.right, insertData, root);
+        }
+    }
 }

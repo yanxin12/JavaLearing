@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -70,13 +71,9 @@ public class test {
 
     @Test
     public void shout() {
-        String data = "hello Henly my name is Jelly";
-        String[] s = data.split(" ");
-        for (int i = 0; i < s.length; i++) {
-            System.out.println(s[i]);
-        }
-    }
+        HashSet<Integer> res = new HashSet<>();
 
+    }
 
 }
 

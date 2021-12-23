@@ -8,22 +8,22 @@
  */
 package com.DataStruct.Tree;
 
-public class TreeNode<T> {
+public class TreeNode<Integer> {
     // 用于实现树的后序非递归遍历
     protected boolean isFirst = true;
-    T val;
-    TreeNode<T> left;
-    TreeNode<T> right;
-    TreeNode<T> parent;
+    int val;
+    TreeNode<Integer> left;
+    TreeNode<Integer> right;
+    TreeNode<Integer> parent;
 
     TreeNode() {
     }
 
-    TreeNode(T val) {
+    TreeNode(int val) {
         this.val = val;
     }
 
-    public TreeNode(boolean isFirst, T val, TreeNode<T> left, TreeNode<T> right, TreeNode<T> parent) {
+    public TreeNode(boolean isFirst, int val, TreeNode<Integer> left, TreeNode<Integer> right, TreeNode<Integer> parent) {
         this.isFirst = isFirst;
         this.val = val;
         this.left = left;
