@@ -9,12 +9,12 @@
 package com.DataStruct.Tree;
 
 public class TreeNode<Integer> {
+    public int val;
+    public TreeNode<Integer> left;
+    public TreeNode<Integer> right;
+    public TreeNode<Integer> parent;
     // 用于实现树的后序非递归遍历
     protected boolean isFirst = true;
-    int val;
-    TreeNode<Integer> left;
-    TreeNode<Integer> right;
-    TreeNode<Integer> parent;
 
     TreeNode() {
     }
