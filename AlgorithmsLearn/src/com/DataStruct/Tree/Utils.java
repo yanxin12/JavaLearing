@@ -720,4 +720,49 @@ public class Utils {
             insertSortTree(root.right, insertData, root);
         }
     }
+
+
+    /**
+     * 二叉搜索树节点的旋转
+     */
+    public boolean leftRotate(TreeNode y) {
+        TreeNode x = y.parent;
+        if (x != null) {
+            y.parent = x.parent;
+            if (x.parent != null && x == x.parent.left) {
+                y = x.parent.left;
+            } else if (x.parent != null && x == x.parent.right) {
+                y = x.parent.right;
+            }
+        }
+        x.right = y.left;
+        if (y.left != null) {
+            // 当y有左子树,防止出现空指针异常
+            y.left.parent = x;
+        }
+        y.left = x;
+        x.parent = y;
+        return true;
+    }
+
+    public boolean rightRotate(TreeNode x) {
+        TreeNode y = x.parent;
+        if (y != null) {
+            x.parent = y.parent;
+            if (y.parent != null && y == y.parent.left) {
+                x = y.parent.left;
+            } else if (y.parent != null && y == y.parent.left) {
+                x = y.parent.right;
+            }
+        }
+        y.left = x.right;
+        if (x.right != null) {
+            x.right.parent = y;
+        }
+        x.right = y;
+        y.parent = x;
+        return true;
+    }
+
+
 }

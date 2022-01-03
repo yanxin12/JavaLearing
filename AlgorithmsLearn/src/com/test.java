@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -58,9 +60,9 @@ public class test {
 
     @Test
     public void transData() {
-        String data = "[[\"a\"],[\"c\"],[\"d\"],[\"a\",\"b\"],[\"c\",\"b\"],[\"d\",\"a\"]]";
+        String data = "[[\"#\",\".\",\"#\",\"#\",\".\",\"#\"],[\".\",\"#\",\"#\",\"#\",\"#\",\".\"],[\"#\",\".\",\"#\",\"#\",\".\",\"#\"]]\n";
         System.out.println(
-                data.replace('[', '{').replace(']', '}'));
+                data.replace('[', '{').replace(']', '}').replace('\"', '\''));
     }
 
     @Test
@@ -70,9 +72,32 @@ public class test {
 
     @Test
     public void shout() {
+        // char 数字变int
+//        char a = '3';
+//        char b = 'a';
+//
+//        System.out.println((int) a);
+//        System.out.println(a - '0');
+//        System.out.println((int) (a - '0'));
+//        if (Character.isDigit(b)) {
+//            System.out.println("Is digit !");
+//        } else {
+//            System.out.println("Is not digit !");
+//        }
+        String test = "a12";
+        test = " " + test + " ";
+        System.out.println(test);
+        String regstr = "\\s";
+        Pattern pattern = Pattern.compile(regstr);
+        Matcher matcher = pattern.matcher(test);
+        String res = matcher.replaceAll("空格");
+        System.out.println(res);
+
+//        System.out.println(test.substring(0, 3));
 
 
     }
+
 }
 
 

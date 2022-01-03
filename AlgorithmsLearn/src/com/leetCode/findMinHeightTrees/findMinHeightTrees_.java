@@ -17,7 +17,7 @@ public class findMinHeightTrees_ {
     // 寻找最小高度树，每一个最小高度树最少有一个节点
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
         // 所有节点都可以作为根节点，但是并不是所有节点作为根节点的树都是最小树
-        // 所以需要对每一个节点作为节点的树进行广度优先遍历（BSF），并且返回高度最小的树
+        // 所以需要对每一个节点作为节点的树进行广度优先遍历（BFS），并且返回高度最小的树
         // 边节点信息是无向的,把边信息转化为矩阵信息
         int[][] edges_data = new int[n][n];
         // 用于存储最小树的信息
@@ -52,10 +52,7 @@ public class findMinHeightTrees_ {
                 // 当队列为空的时候表明，以i为根节点的树已经遍历完成
             }
             TreeData.put(i, treeLen);
-
-
             // while (!root.isEmpty()){
-
 
         }
 
