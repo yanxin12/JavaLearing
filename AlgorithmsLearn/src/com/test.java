@@ -3,11 +3,10 @@ package com;// -*- coding: utf-8 -*-
 import com.Sort.Utils.SortUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 
 /**
@@ -18,24 +17,30 @@ import java.util.regex.Pattern;
  * Introduction:
  */
 
+
 public class test {
     SortUtils utils = new SortUtils();
+    UnaryOperator<Integer> dda = x -> x + 1;
 
     public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
+        String name = myScanner.next();
+        if (checkPredicate(name, s -> s.length() > 5, b -> name.equals("Yang"))) {
+            System.out.println("Yes!");
+        }
 
 //        ArrayList<Integer> heap = new ArrayList<>();
-        List<Integer> heap = Collections.synchronizedList(new ArrayList<>());
-        for (int i = 0; i < 10; i++) {
-            heap.add(i);
-        }
-
-        for (Integer integer : heap) {
-            System.out.print(integer + "\t\t");
-        }
+        //List<Integer> heap = Collections.synchronizedList(new ArrayList<>());
+//        for (int i = 0; i < 10; i++) {
+//            heap.add(i);
+//        }
+//
+//        for (Integer integer : heap) {
+//            System.out.print(integer + "\t\t");
+//        }
 
 
     }
-
 
     @Test
     public static void test(List<Integer> heap) {
@@ -43,6 +48,15 @@ public class test {
 
     }
 
+    @Test
+    public static boolean checkPredict(String name, Predicate<String> predicate) {
+        return predicate.test(name);
+    }
+
+    public static boolean checkPredicate(String name, Predicate<String> pre1, Predicate<String> pre2) {
+        return pre1.or(pre2).test(name);
+
+    }
 
     @Test
     // 增强for循环无法初始化数组
@@ -72,31 +86,53 @@ public class test {
 
     @Test
     public void shout() {
-        // char 数字变int
-//        char a = '3';
-//        char b = 'a';
-//
-//        System.out.println((int) a);
-//        System.out.println(a - '0');
-//        System.out.println((int) (a - '0'));
-//        if (Character.isDigit(b)) {
-//            System.out.println("Is digit !");
-//        } else {
-//            System.out.println("Is not digit !");
-//        }
-        String test = "a12";
-        test = " " + test + " ";
-        System.out.println(test);
-        String regstr = "\\s";
-        Pattern pattern = Pattern.compile(regstr);
-        Matcher matcher = pattern.matcher(test);
-        String res = matcher.replaceAll("空格");
-        System.out.println(res);
+/*        System.out.println(bitCount_(011));
+        System.out.println(bitCount_(39));
+        System.out.println(bitCount2(011));
+        System.out.println(bitCount2(3));*/
+        //System.out.println(bitCount2(0b00000000000000001111111111111111));
+        System.out.println(bitCount2(0x3f));
+        System.out.println(repeatBitCount(0x3f));
+    }
 
-//        System.out.println(test.substring(0, 3));
+    @Test
+    public int bitCount_(int num) {
+        int count = 0;
+        while (num > 0) {
+            if ((num & 1) == 1) {
+                // 01023131 & 00000001
+                ++count;
+            }
+            num >>= 1;
+        }
+        return count;
+    }
 
+    @Test
+    public int bitCount2(int num) {
+        int count = 0;
+        while (num > 0) {
+            num = num & (num - 1);
+            count++;
+        }
+        return count;
+    }
+
+    @Test
+    public int repeatBitCount(int i) {
+        i = (i & 0x55555555) + ((i >>> 1) & 0x55555555);
+        i = (i & 0x33333333) + ((i >>> 2) & 0x33333333);
+        i = (i & 0x0f0f0f0f) + ((i >>> 4) & 0x0f0f0f0f);
+        i = (i & 0x00ff00ff) + ((i >>> 8) & 0x00ff00ff);
+        i = (i & 0x0000ffff) + ((i >>> 16) & 0x0000ffff);
+        return i & 0x3f;
+    }
+
+    @Test
+    public void say() {
 
     }
+
 
 }
 

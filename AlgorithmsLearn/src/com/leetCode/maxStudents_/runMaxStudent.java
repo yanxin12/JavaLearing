@@ -16,13 +16,12 @@ public class runMaxStudent {
         char[][] seats = {{'#', '.', '#', '#', '.', '#'}, {'.', '#', '#', '#', '#', '.'}, {'#', '.', '#', '#', '.', '#'}};
 //         System.out.println(new maxStudents_().maxStudents(seats));
         System.out.println(new maxStudentUpdate().maxStudents(seats));
+        System.out.println(new BigBullResolution().maxStudents(seats));
         for (char[] ints : seats) {
             for (char c : ints) {
                 System.out.print(c + "\t");
             }
             System.out.println();
         }
-
-
     }
 }
